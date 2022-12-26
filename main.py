@@ -203,15 +203,24 @@ class Enemy(pygame.sprite.Sprite):
     image = pygame.transform.scale(
         source_image, (w, source_image.get_height() / source_image.get_width() * w))
     speed = 2
+    animationg_speed = 3
 
     def __init__(self):
         super().__init__(enemies)
         self.image = Enemy.image
         self.rect = self.image.get_rect()
         self.horizontal_speed = randint(-2, 2)
-        # self.time_to_change = randint(FPS * 1, FPS * 4)
-        self.time_to_change = 100500
-        self.rect.top = randint(5, 150)
+
+        # Анимация вылета из-за края экрана
+        self.is_ticking = False
+        self.is_animating = True
+        self.top_destination = randint(5, 150)
+        self.top_source = randint(-2 * self.rect.height, -1 * self.rect.height)
+        # задержка перед тем, как изменить скорость горизонтального смещения
+        self.time_to_change = randint(FPS * 1, FPS * 2.5)
+
+        # вычисляю приемлимое положение слева, чтобы не было пересечений с другими объектами
+        self.rect.top = self.top_destination
         self.rect.left = randint(0, WIDTH - self.rect.width)
         left_retries = 100
         self.delay_to_move = randint(FPS * 3, FPS * 4)
@@ -221,8 +230,15 @@ class Enemy(pygame.sprite.Sprite):
             if left_retries < 0:
                 break
             self.rect.left = randint(0, WIDTH - self.rect.width)
-        self.hp = 100
-        self.time_to_shoot = randint(1, FPS * 4)
+
+        self.hp = 100  # здоровье
+        # задержка перед следующим выстрелом
+        self.time_to_shoot = randint(0.5 * FPS, FPS * 4)
+
+    def end_computation(self) -> None:
+        if self.is_animating:
+            # возвращаю в top значение для анимации
+            self.rect.top = self.top_source
 
     def update(self):
         self.rect.x += self.horizontal_speed
@@ -242,21 +258,59 @@ class Enemy(pygame.sprite.Sprite):
         if self.rect.top > HEIGHT:
             self.kill()
             return
-        if self.is_moving:
+        if self.is_animating:
+            self.rect.top += Enemy.animationg_speed
+            if self.rect.top >= self.top_destination:
+                self.rect.top = self.top_destination
+                self.is_animating = False
+                self.is_ticking = True
+        elif self.is_moving:
             self.rect.top += Enemy.speed
-        else:
+        elif self.is_ticking:
             self.delay_to_move -= 1
             if self.delay_to_move <= 0:
                 self.is_moving = True
-        self.time_to_shoot -= 1
-        if self.time_to_shoot <= 0:
-            self.time_to_shoot = randint(1, FPS * 4)
-            EnemyLaser(self.rect.bottom, self.rect.left + self.rect.width // 2)
+                self.is_ticking = False
+        if not self.is_animating:
+            self.time_to_shoot -= 1
+            if self.time_to_shoot <= 0:
+                self.time_to_shoot = randint(0.5 * FPS, FPS * 4)
+                EnemyLaser(self.rect.bottom, self.rect.left +
+                           self.rect.width // 2)
 
         self.time_to_change -= 1
         if self.time_to_change <= 0:
-            self.horizontal_speed = randint(-2, 2)
+            self.horizontal_speed = randint(-3, 3)
             self.time_to_change = randint(FPS * 1, FPS * 4)
+
+
+class PowerUp(pygame.sprite.Sprite):
+    def __init__(self, image: pygame.Surface):
+        super().__init__(power_ups)
+        self.image = image
+        self.rect = self.image.get_rect()
+        self.rect.bottom = randint(-10, -200)
+        self.rect.left = randint(10, WIDTH - self.rect.width - 10)
+        self.speed = 3
+
+    def update(self):
+        self.rect.y += self.speed
+        if self.rect.top >= HEIGHT:
+            self.kill()
+
+
+class Shield(PowerUp):
+    image = load_image(path.join('power-ups', 'shield.png'))
+
+    def __init__(self):
+        super().__init__(Shield.image)
+
+
+class Pill(PowerUp):
+    image = load_image(path.join('power-ups', 'pill.png'))
+
+    def __init__(self):
+        super().__init__(Pill.image)
 
 
 def spend_life():
@@ -281,6 +335,7 @@ if __name__ == '__main__':
     enemies = pygame.sprite.Group()
     player = pygame.sprite.Group()
     explosions = pygame.sprite.Group()
+    power_ups = pygame.sprite.Group()
     Background(0)
     Background(1)
     Player()
@@ -298,6 +353,8 @@ if __name__ == '__main__':
             enemy_time_left = enemy_delay
             for _ in range(enemy_count):
                 Enemy()
+            for enemy in enemies:
+                enemy.end_computation()
         screen.fill('black')
         backgrounds.update()
         player.update()
@@ -305,12 +362,14 @@ if __name__ == '__main__':
         enemy_lasers.update()
         enemies.update()
         explosions.update()
+        power_ups.update()
         backgrounds.draw(screen)
         player.draw(screen)
         player_lasers.draw(screen)
         enemy_lasers.draw(screen)
         enemies.draw(screen)
         explosions.draw(screen)
+        power_ups.draw(screen)
         pygame.display.flip()
         clock.tick(FPS)
     pygame.quit()
