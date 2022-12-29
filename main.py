@@ -6,6 +6,10 @@ from random import randint
 WIDTH = 600
 HEIGHT = 600
 BACKGROUND_HEIGHT = 1280 / 720 * WIDTH
+SOURCE_START_WIDTH = 2208
+SOURCE_START_HEIGHT = 1242
+START_HEIGHT = 600
+START_WIDTH = SOURCE_START_WIDTH / SOURCE_START_HEIGHT * START_HEIGHT
 PLAYER_STYLE = 'red'
 FPS = 60
 lifes_left = 3
@@ -17,7 +21,7 @@ def terminate() -> None:
 
 
 def load_image(name: str) -> pygame.Surface:
-    fullname = path.join('images', name)
+    fullname = path.join('resources', name)
     if not path.exists(fullname):
         print(f'Файл с изображением {fullname} не найден')
         exit(1)
@@ -26,7 +30,34 @@ def load_image(name: str) -> pygame.Surface:
 
 
 def start_screen() -> None:
-    pass
+    INTRO_TEXT = ['Ваша задача', '- Уничтожте как можно больше врагов',
+                  '- Не дайте врагам добраться до нижнего', 'края окна',
+                  '- Не попадайте под пули врагов', '', '', '',
+                  'Нажмите любую клавишу, чтобы продолжить']
+    background = pygame.transform.scale(
+        load_image('start.jpg'), (START_WIDTH, START_HEIGHT))
+    screen.blit(background, (0, 0))
+    font = pygame.font.Font(path.join('resources', 'font.ttf'), 24)
+    text_coord = 200
+    for line in INTRO_TEXT:
+        text = font.render(line, 1, pygame.Color('white'))
+        text_rect = text.get_rect()
+        text_rect.top = text_coord
+        text_rect.left = 10
+        text_coord += text_rect.height + 10
+        screen.blit(text, text_rect)
+    is_running = True
+    clock = pygame.time.Clock()
+    while is_running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                terminate()
+                is_running = False
+                break
+            elif event.type == pygame.MOUSEBUTTONDOWN or event.type == pygame.KEYDOWN:
+                is_running = False
+        pygame.display.flip()
+        clock.tick(FPS)
 
 
 class Background(pygame.sprite.Sprite):
@@ -130,7 +161,6 @@ class Player(pygame.sprite.Sprite):
         colliding_enemy = pygame.sprite.spritecollideany(self, enemies)
         if colliding_enemy:
             self.hp -= 50
-            print(self.hp)
             self.small_explosion()
             colliding_enemy.kill()
         if self.hp != self.applied_damage:
@@ -327,6 +357,9 @@ if __name__ == '__main__':
     pygame.mouse.set_visible(False)
     size = WIDTH, HEIGHT
     screen = pygame.display.set_mode(size)
+
+    start_screen()
+
     is_running = True
     clock = pygame.time.Clock()
     backgrounds = pygame.sprite.Group()
