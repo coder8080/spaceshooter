@@ -33,21 +33,20 @@ class StarPowerUp(AbstractPowerUp):
     def apply(self):
         self.score.star_collected()
 
-# class Shield(PowerUp):
-#     image = load_image(path.join('power-ups', 'shield.png'))
 
-#     def __init__(self):
-#         super().__init__(Shield.image)
+class ArmorPowerUp(AbstractPowerUp):
+    image = load_image(path.join('power-ups', 'shield.png'))
 
+    def __init__(self):
+        super().__init__(ArmorPowerUp.image)
 
-# class Pill(PowerUp):
-#     image = load_image(path.join('power-ups', 'pill.png'))
+    def apply(self):
+        player_sprite = list(player)[0]
+        player_sprite.hp = min(player_sprite.hp + 20, 100)
 
-#     def __init__(self):
-#         super().__init__(Pill.image)
 
 def generate_powerup_delay() -> int:
     return randint(POWERUP_DELAY_MIN, POWERUP_DELAY_MAX)
 
 
-powerup_types = [StarPowerUp]
+powerup_types = [StarPowerUp, ArmorPowerUp]

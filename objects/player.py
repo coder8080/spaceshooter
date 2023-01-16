@@ -41,6 +41,17 @@ class Player(pygame.sprite.Sprite):
     def refresh_image(self):
         self.image = Player.image.copy()
 
+    def draw_damage(self):
+        if self.hp != self.applied_damage:
+            self.refresh_image()
+            if self.hp < 25:
+                self.image.blit(Player.damages[2], (0, 0))
+            if self.hp < 50:
+                self.image.blit(Player.damages[1], (0, 0))
+            if self.hp < 75:
+                self.image.blit(Player.damages[0], (0, 0))
+            self.applied_damage = self.hp
+
     def update(self, event=None):
         if event is not None and hasattr(event, 'pos'):
             x, y = event.pos
@@ -61,15 +72,8 @@ class Player(pygame.sprite.Sprite):
             self.hp -= 50
             self.flower_explosion()
             colliding_enemy.kill()
-        if self.hp != self.applied_damage:
-            self.image = Player.image.copy()
-            if self.hp < 25:
-                self.image.blit(Player.damages[2], (0, 0))
-            if self.hp < 50:
-                self.image.blit(Player.damages[1], (0, 0))
-            if self.hp < 75:
-                self.image.blit(Player.damages[0], (0, 0))
-            self.applied_damage = self.hp
+
+        self.draw_damage()
 
         if self.hp <= 0:
             self.hp = 100
