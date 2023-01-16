@@ -25,7 +25,7 @@ class Partile(pygame.sprite.Sprite):
             self.kill()
 
 
-def generate_explosion(pos):
+def generate_flower_explosion(pos):
     particle_count = 20
     numbers = range(-5, 6)
     for _ in range(particle_count):

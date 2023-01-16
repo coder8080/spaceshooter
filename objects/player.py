@@ -30,8 +30,8 @@ class Player(pygame.sprite.Sprite):
                   self.rect.y + self.rect.height // 2)
 
     def flower_explosion(self):
-        generate_explosion((self.rect.x + self.rect.width // 2,
-                            self.rect.y + self.rect.height // 2))
+        generate_flower_explosion((self.rect.x + self.rect.width // 2,
+                                   self.rect.y + self.rect.height // 2))
 
     def shoot(self):
         PlayerLaser(self.rect.top, self.rect.left +

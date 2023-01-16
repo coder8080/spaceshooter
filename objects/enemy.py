@@ -67,8 +67,8 @@ class Enemy(pygame.sprite.Sprite):
             self.hp -= colliding_laser.damage
             if self.hp <= 0:
                 self.score.enemy_destroyed()
-                generate_explosion((self.rect.x + self.rect.width // 2,
-                                    self.rect.y + self.rect.height // 2))
+                generate_flower_explosion((self.rect.x + self.rect.width // 2,
+                                           self.rect.y + self.rect.height // 2))
                 self.kill()
                 return
         if self.rect.top > HEIGHT:

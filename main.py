@@ -4,11 +4,17 @@ import pygame
 
 
 def spawn_enemies():
-    for _ in range(enemy_count):
+    for _ in range(ENEMY_COUNT):
         Enemy()
     for enemy in enemies:
         enemy.end_computation()
-    return enemy_delay
+    return ENEMY_DELAY
+
+
+def spawn_powerup():
+    PowerUpType = choice(powerup_types)
+    PowerUpType()
+    return generate_powerup_delay()
 
 
 def end_game():
@@ -16,7 +22,7 @@ def end_game():
     enemy_lasers.empty()
     enemies.empty()
     global enemy_time_left
-    enemy_time_left = enemy_delay
+    enemy_time_left = ENEMY_DELAY
 
 
 if __name__ == '__main__':
@@ -40,7 +46,8 @@ if __name__ == '__main__':
         Background(1)
         Player(end_game)
         score = Score()
-        enemy_timer = Timer(spawn_enemies, enemy_delay)
+        enemy_timer = Timer(spawn_enemies, ENEMY_DELAY)
+        powerup_timer = Timer(spawn_powerup, generate_powerup_delay())
         while is_running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -49,6 +56,7 @@ if __name__ == '__main__':
                     player.update(event)
 
             enemy_timer.update()
+            powerup_timer.update()
             screen.fill('black')
             update_all_groups()
             draw_all_groups(screen)
@@ -57,4 +65,3 @@ if __name__ == '__main__':
         clear_all_groups()
         end_screen(screen, score, has_showed_conclusion)
         has_showed_conclusion = True
-    pygame.quit()
