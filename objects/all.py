@@ -1,3 +1,5 @@
+""" Добавляет все игровые объекты в область видимости """
+
 from .abstract_laser import *
 from .background import *
 from .enemy_laser import *

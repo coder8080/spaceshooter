@@ -3,6 +3,8 @@ from .importer import *
 
 @singleton
 class HealthDisplay(pygame.sprite.Sprite):
+    """ Отображение оставшегося здоровья игрока """
+
     def __init__(self):
         super().__init__(displays_group)
         self.value = 100

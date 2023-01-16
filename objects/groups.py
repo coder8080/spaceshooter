@@ -1,3 +1,5 @@
+""" Группы спрайтов """
+
 import pygame
 
 backgrounds = pygame.sprite.Group()
@@ -15,15 +17,18 @@ all_groups = [backgrounds, player_lasers, enemy_lasers, enemies,
 
 
 def update_all_groups() -> None:
+    """ Обновить все группы """
     for group in all_groups:
         group.update()
 
 
 def draw_all_groups(screen: pygame.surface) -> None:
+    """ Отрисовать все группы """
     for group in all_groups:
         group.draw(screen)
 
 
 def clear_all_groups() -> None:
+    """ Очистить все группы """
     for group in all_groups:
         group.empty()

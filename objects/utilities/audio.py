@@ -1,3 +1,5 @@
+""" Работа со звуком """
+
 import pygame
 from os import path
 from .constants import *
@@ -8,6 +10,7 @@ def get_audio_path(name: str):
     return resource_path(path.join('resources', 'audio', name))
 
 
+# Файлы со звуком
 audio = {
     'music': get_audio_path('music.mp3'),
     'enemy_laser': get_audio_path('enemy_laser.ogg'),
@@ -16,6 +19,7 @@ audio = {
     'powerup': get_audio_path('powerup.ogg')
 }
 
+# Каналы звука для каждого типа
 channels = {
     'music': 1,
     'enemy_laser': 2,
@@ -26,6 +30,7 @@ channels = {
 
 
 def play(name: str) -> None:
+    """ Воспроизвести определённый звук """
     mixerChannel = pygame.mixer.Channel(channels[name])
     sound = pygame.mixer.Sound(audio[name])
     if name == 'music':
@@ -34,11 +39,13 @@ def play(name: str) -> None:
 
 
 def update_music() -> None:
+    """ Убедиться, что музыка играет """
     music_channel = pygame.mixer.Channel(channels['music'])
     if not music_channel.get_busy():
         play('music')
 
 
 def stop(name: str) -> None:
+    """ Остановить воспроизведение звука """
     mixerChannel = pygame.mixer.Channel(channels[name])
     mixerChannel.stop()

@@ -3,6 +3,7 @@ from .abstract_laser import *
 
 
 class EnemyLaser(AbstractLaser):
+    """ Лазер врага """
     image = load_image(path.join('effects', 'enemy_laser.png'))
 
     def __init__(self, top: int, center: int):

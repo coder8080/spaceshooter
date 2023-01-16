@@ -1,3 +1,5 @@
+""" Глобальные константы """
+
 WIDTH = 600
 HEIGHT = 600
 BACKGROUND_HEIGHT = 1280 / 720 * WIDTH

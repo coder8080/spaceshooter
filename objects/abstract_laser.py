@@ -2,6 +2,8 @@ from .importer import *
 
 
 class AbstractLaser(pygame.sprite.Sprite):
+    """ Основное поведение пуля """
+
     def __init__(self, bottom: int, center: int, speed: int, image: pygame.Surface, group: pygame.sprite.Group):
         super().__init__(group)
         self.image = image

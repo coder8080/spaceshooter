@@ -6,6 +6,7 @@ from .score import *
 
 
 class Enemy(pygame.sprite.Sprite):
+    """ Враг """
     w = 60
     source_image = load_image(path.join('enemies', 'enemyBlack1.png'))
     image = pygame.transform.scale(

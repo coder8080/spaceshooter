@@ -2,6 +2,7 @@ from .importer import *
 
 
 class Explosion(pygame.sprite.Sprite):
+    """ Взрыв """
     images = [load_image(path.join('explosion', '1.png')), load_image(
         path.join('explosion', '2.png')), load_image(path.join('explosion', '3.png'))]
 

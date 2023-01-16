@@ -6,6 +6,7 @@ from .health_display import *
 
 
 class Player(pygame.sprite.Sprite):
+    """ Игрок (истребитель, управляемый мышкой) """
     w = 60
     image = pygame.transform.scale(
         load_image(path.join('player', 'red.png')), (w, 303 / 400 * w))

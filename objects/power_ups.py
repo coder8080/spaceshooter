@@ -1,8 +1,12 @@
+""" Усиления """
+
 from .importer import *
 from .score import *
 
 
 class AbstractPowerUp(pygame.sprite.Sprite):
+    """ Общее поведение усилений """
+
     def __init__(self, image: pygame.Surface):
         super().__init__(power_ups)
         self.image = image
@@ -24,6 +28,7 @@ class AbstractPowerUp(pygame.sprite.Sprite):
 
 
 class StarPowerUp(AbstractPowerUp):
+    """ Усиление дополнительных очков """
     image = load_image(path.join('power-ups', 'star.png'))
 
     def __init__(self):
@@ -36,6 +41,7 @@ class StarPowerUp(AbstractPowerUp):
 
 
 class ArmorPowerUp(AbstractPowerUp):
+    """ Усиление брони """
     image = load_image(path.join('power-ups', 'shield.png'))
 
     def __init__(self):

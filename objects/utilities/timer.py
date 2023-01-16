@@ -1,4 +1,6 @@
 class Timer(object):
+    """ Вызывает функцию с определённой частотой """
+
     def __init__(self, callback, initial_time, is_running=True, update_callback=None):
         self.is_running = is_running
         self.initial_time = initial_time

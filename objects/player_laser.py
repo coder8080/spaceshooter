@@ -3,6 +3,7 @@ from .abstract_laser import *
 
 
 class PlayerLaser(AbstractLaser):
+    """ Продукт выстрела экспериментальной пушки """
     image = pygame.transform.scale(
         load_image(path.join('effects', 'heart.png')), (20, 20))
 

@@ -1,5 +1,6 @@
 
 def singleton(class_):
+    """ Паттерн единственного экземпляра класса """
     class class_w(class_):
         _instance = None
 

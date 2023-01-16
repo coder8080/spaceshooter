@@ -4,6 +4,7 @@ screen_rect = pygame.rect.Rect(0, 0, WIDTH, HEIGHT)
 
 
 class Partile(pygame.sprite.Sprite):
+    """ Превращение врага в цветы (паттерн частиц) """
     images = [load_image(path.join('effects', 'flower.png'))]
     for scale in (10, 20):
         images.append(pygame.transform.scale(images[0], (scale, scale)))
@@ -26,6 +27,7 @@ class Partile(pygame.sprite.Sprite):
 
 
 def generate_flower_explosion(pos):
+    """ Сгенерировать превращение врага в цветы """
     play('enemy_explosion')
     particle_count = 20
     numbers = range(-5, 6)

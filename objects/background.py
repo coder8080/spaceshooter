@@ -2,6 +2,7 @@ from .importer import *
 
 
 class Background(pygame.sprite.Sprite):
+    """ Движущийся фон во врем игры """
     source_image = pygame.transform.scale(load_image(
         'background.png'), (WIDTH, BACKGROUND_HEIGHT))
     speed = 5

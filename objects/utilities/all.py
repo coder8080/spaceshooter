@@ -1,3 +1,5 @@
+""" Добавляет в область видимости все вспомогательные сущности """
+
 from .constants import *
 from .end_screen import *
 from .load_image import *

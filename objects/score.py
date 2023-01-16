@@ -3,6 +3,8 @@ from .importer import *
 
 @singleton
 class Score(pygame.sprite.Sprite):
+    """ Отображение текущего игрового счёта """
+
     def __init__(self):
         super().__init__(displays_group)
         self.value = 0
