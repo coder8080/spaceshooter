@@ -8,3 +8,4 @@ from .player_laser import *
 from .player import *
 from .power_ups import *
 from .flower_explosion import *
+from .score import *

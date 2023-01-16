@@ -2,6 +2,7 @@ from .importer import *
 from .enemy_laser import *
 from .explosion import *
 from .flower_explosion import *
+from .score import *
 
 
 class Enemy(pygame.sprite.Sprite):
@@ -14,6 +15,8 @@ class Enemy(pygame.sprite.Sprite):
 
     def __init__(self):
         super().__init__(enemies)
+        self.score = Score()
+
         self.image = Enemy.image
         self.rect = self.image.get_rect()
         self.horizontal_speed = randint(-2, 2)
@@ -63,11 +66,13 @@ class Enemy(pygame.sprite.Sprite):
             colliding_laser.kill()
             self.hp -= colliding_laser.damage
             if self.hp <= 0:
+                self.score.enemy_destroyed()
                 generate_explosion((self.rect.x + self.rect.width // 2,
                                     self.rect.y + self.rect.height // 2))
                 self.kill()
                 return
         if self.rect.top > HEIGHT:
+            self.score.enemy_on_base()
             self.kill()
             return
         if self.is_animating:

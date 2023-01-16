@@ -1,6 +1,6 @@
-import pygame
-from objects.all import *
 from objects.utilities.all import *
+from objects.all import *
+import pygame
 
 
 def spawn_enemies():
@@ -34,6 +34,7 @@ if __name__ == '__main__':
     Background(0)
     Background(1)
     Player()
+    Score()
     enemy_timer = Timer(spawn_enemies, enemy_delay)
     while is_running:
         for event in pygame.event.get():
@@ -53,6 +54,7 @@ if __name__ == '__main__':
         explosions.update()
         power_ups.update()
         particles.update()
+        score_group.update()
 
         backgrounds.draw(screen)
         player.draw(screen)
@@ -62,6 +64,7 @@ if __name__ == '__main__':
         explosions.draw(screen)
         power_ups.draw(screen)
         particles.draw(screen)
+        score_group.draw(screen)
 
         pygame.display.flip()
         clock.tick(FPS)

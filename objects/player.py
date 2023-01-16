@@ -71,12 +71,6 @@ class Player(pygame.sprite.Sprite):
             self.applied_damage = self.hp
 
         if self.hp <= 0:
-            self.ex1 = Explosion(self.rect.x + self.rect.width // 2 - 20,
-                                 self.rect.y + self.rect.height // 2 - 20, FPS * 2)
-            self.ex2 = Explosion(self.rect.x + self.rect.width // 2 + 20,
-                                 self.rect.y + self.rect.height // 2, FPS * 2)
-            self.ex3 = Explosion(self.rect.x + self.rect.width // 2 - 20,
-                                 self.rect.y + self.rect.height // 2 + 20, FPS * 2)
             self.hp = 100
             # TODO: завершение игры
             # spend_life()

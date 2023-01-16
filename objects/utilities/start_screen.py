@@ -4,7 +4,8 @@ from .terminate import *
 
 
 def start_screen(screen: pygame.Surface) -> None:
-    INTRO_TEXT = ['Вы - пилот истребителя. Недавно под ваше руководство',
+    INTRO_TEXT = ['Предыстория',
+                  'Вы - пилот истребителя. Недавно под ваше руководство',
                   'попал новый стажер, который отрицательно относится к',
                   'насилию и к идущей войне с пришельцами. Пока вы помогали',
                   'с починкой варп-двигателя на грузовом корабле друга,',
@@ -27,9 +28,9 @@ def start_screen(screen: pygame.Surface) -> None:
 
     screen.blit(background, (WIDTH // 3, HEIGHT // 4))
     font = pygame.font.Font(path.join('resources', 'font.ttf'), 18)
-    text_coord = 20
+    text_coord = 10
     for line in INTRO_TEXT:
-        text = font.render(line, 1, pygame.Color('white'))
+        text = font.render(line, 0, pygame.Color('white'))
         text_rect = text.get_rect()
         text_rect.top = text_coord
         text_rect.left = 10
