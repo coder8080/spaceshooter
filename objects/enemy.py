@@ -72,7 +72,7 @@ class Enemy(pygame.sprite.Sprite):
                 self.kill()
                 return
         if self.rect.top > HEIGHT:
-            self.score.enemy_on_base()
+            self.score.enemy_at_base()
             self.kill()
             return
         if self.is_animating:

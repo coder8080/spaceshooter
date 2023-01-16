@@ -4,18 +4,24 @@ from .terminate import *
 from random import randint
 
 
-def end_screen(screen: pygame.Surface, score) -> None:
-    TEXT = ['Заключение', 'Броня корабля была на исходе. Подкрепление пришло',
+def end_screen(screen: pygame.Surface, score, has_showed_conclusion: bool) -> None:
+    PLOT = ['Заключение', 'Броня корабля была на исходе. Подкрепление пришло',
             'вовремя, и вы благополучно вернулись на базу. Стажёру',
             'кончно, сделали выговор, но его чертежы были отправлены',
             'в главное конструкторское бюро федерации.',
-            '',
-            'Результат тестирования',
-            f'Набранные очки: {score.get_value()}',
-            f'Враги, которые стали цветами: {score.get_destroyed_enemies()}',
-            f'Планеты, на которых теперь есть жизнь: {score.get_destroyed_enemies() // randint(3, 7)}',
-            '',
-            'Чтобы сыграть ещё раз, нажмите любую клавишу']
+            '']
+    RESULT = [
+        'Результат тестирования',
+        f'Набранные очки: {score.get_value()}',
+        f'Враги, которые стали цветами: {score.get_destroyed_enemies()}',
+        f'Планеты, на которых теперь есть жизнь: {score.get_destroyed_enemies() // randint(3, 7)}',
+        '',
+        'Чтобы сыграть ещё раз, нажмите любую клавишу']
+    TEXT = []
+    if has_showed_conclusion:
+        TEXT = RESULT
+    else:
+        TEXT = PLOT + RESULT
     background = load_image(path.join('effects', 'start_heart.png'))
     background = pygame.transform.scale(
         background, (START_WIDTH // 2, START_HEIGHT // 2))
