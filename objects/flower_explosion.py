@@ -26,6 +26,7 @@ class Partile(pygame.sprite.Sprite):
 
 
 def generate_flower_explosion(pos):
+    play('enemy_explosion')
     particle_count = 20
     numbers = range(-5, 6)
     for _ in range(particle_count):

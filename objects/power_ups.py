@@ -12,7 +12,7 @@ class AbstractPowerUp(pygame.sprite.Sprite):
         self.speed = 3
 
     def apply(self):
-        pass
+        play('powerup')
 
     def update(self) -> None:
         self.rect.y += self.speed
@@ -31,6 +31,7 @@ class StarPowerUp(AbstractPowerUp):
         self.score = Score()
 
     def apply(self):
+        super().apply()
         self.score.star_collected()
 
 
@@ -41,6 +42,7 @@ class ArmorPowerUp(AbstractPowerUp):
         super().__init__(ArmorPowerUp.image)
 
     def apply(self):
+        super().apply()
         player_sprite = list(player)[0]
         player_sprite.hp = min(player_sprite.hp + 20, 100)
 

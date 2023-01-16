@@ -9,3 +9,4 @@ class EnemyLaser(AbstractLaser):
         super().__init__(top + EnemyLaser.image.get_height(),
                          center,  7, EnemyLaser.image, enemy_lasers)
         self.damage = 10
+        play('enemy_laser')

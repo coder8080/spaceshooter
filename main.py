@@ -27,13 +27,14 @@ def end_game():
 
 if __name__ == '__main__':
     pygame.init()
+    pygame.mixer.init()
     pygame.display.set_caption('SpaceShooter')
     pygame.mouse.set_visible(False)
     size = WIDTH, HEIGHT
     screen = pygame.display.set_mode(size)
     start_screen(screen)
     has_showed_conclusion = False
-
+    play('music')
     while True:
         is_running = True
 
@@ -48,6 +49,7 @@ if __name__ == '__main__':
         score = Score()
         enemy_timer = Timer(spawn_enemies, ENEMY_DELAY)
         powerup_timer = Timer(spawn_powerup, generate_powerup_delay())
+        # laser_sound_timer = Timer(play_laser_sound, LASER_SOUND_DELAY)
         while is_running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -57,6 +59,7 @@ if __name__ == '__main__':
 
             enemy_timer.update()
             powerup_timer.update()
+            # laser_sound_timer.update()
             screen.fill('black')
             update_all_groups()
             draw_all_groups(screen)

@@ -14,6 +14,7 @@ class Explosion(pygame.sprite.Sprite):
         self.duration = duraion
         self.state_duration = self.duration // 3
         self.timer = Timer(self.change_stage, self.state_duration)
+        play('player_damage')
 
     def update_coords(self, x: int, y: int):
         self.rect.x = x - self.rect.width // 2
