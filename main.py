@@ -40,6 +40,11 @@ if __name__ == '__main__':
     start_screen(screen)
 
     has_showed_conclusion = False
+    file = None
+    if not path.exists('results.txt'):
+        file = open('results.txt', 'w')
+    else:
+        file = open('results.txt', 'a')
 
     while True:
         # Основной игровой цилк
@@ -78,5 +83,5 @@ if __name__ == '__main__':
             clock.tick(FPS)
         stop('music')
         clear_all_groups()
-        end_screen(screen, score, has_showed_conclusion)
+        end_screen(screen, score, has_showed_conclusion, file)
         has_showed_conclusion = True

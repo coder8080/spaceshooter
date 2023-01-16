@@ -2,11 +2,17 @@ from .load_image import *
 from .constants import *
 from .terminate import *
 from random import randint
+from datetime import datetime
 
 
-def end_screen(screen: pygame.Surface, score, has_showed_conclusion: bool) -> None:
+def end_screen(screen: pygame.Surface, score, has_showed_conclusion: bool, results_file) -> None:
     """ Экран конца игры """
-
+    total_score = score.get_value()
+    destroyed_enemies = score.get_destroyed_enemies()
+    now = datetime.now()
+    datetime_str = now.strftime('%Y-%m-%d %H:%M:%S')
+    print(
+        f'Счёт: {total_score}, Побеждённые враги: {destroyed_enemies}, Время: {datetime_str}', file=results_file)
     PLOT = ['Заключение', 'Броня корабля была на исходе. Подкрепление пришло',
             'вовремя, и вы благополучно вернулись на базу. Стажёру',
             'конечно, сделали выговор, но его чертежы были отправлены',
@@ -14,9 +20,10 @@ def end_screen(screen: pygame.Surface, score, has_showed_conclusion: bool) -> No
             '']
     RESULT = [
         'Результат тестирования',
-        f'Набранные очки: {score.get_value()}',
-        f'Враги, которые стали цветами: {score.get_destroyed_enemies()}',
+        f'Набранные очки: {total_score}',
+        f'Враги, которые стали цветами: {destroyed_enemies}',
         f'Планеты, на которых теперь есть жизнь: {score.get_destroyed_enemies() // randint(3, 7)}',
+        'Ваш результат сохранён в файл results.txt'
         '',
         'Чтобы сыграть ещё раз, нажмите любую клавишу']
     TEXT = []
