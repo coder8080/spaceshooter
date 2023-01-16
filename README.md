@@ -1,7 +1,10 @@
 # Spaceshooter
 
 Инди игра. Создана как проект по PyGame в рамках занятий Яндекс Лицея.
+
 Спецификация в [notion](https://ivy-tourmaline-c43.notion.site/Space-Shooter-aea4539e5f424cd0a35c0768e602f4cc)
+
+Видео: [яндекс диск](https://disk.yandex.ru/i/CmimlOl_SwlDwA)
 
 ## Функционал
 
