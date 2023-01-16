@@ -30,7 +30,7 @@ class Score(pygame.sprite.Sprite):
         self.value = 0
         self.destroyed_enemies = 0
         self.font = pygame.font.Font(
-            path.join('resources', 'font.ttf'), 24)
+            resource_path(path.join('resources', 'font.ttf')), 24)
         self.update()
 
     def enemy_destroyed(self):

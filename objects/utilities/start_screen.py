@@ -27,7 +27,8 @@ def start_screen(screen: pygame.Surface) -> None:
         background, (START_WIDTH, START_HEIGHT))
 
     screen.blit(background, (WIDTH // 3, HEIGHT // 4))
-    font = pygame.font.Font(path.join('resources', 'font.ttf'), 18)
+    font = pygame.font.Font(resource_path(
+        path.join('resources', 'font.ttf')), 18)
     text_coord = 10
     for line in INTRO_TEXT:
         text = font.render(line, 0, pygame.Color('white'))

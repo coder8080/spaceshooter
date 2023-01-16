@@ -30,7 +30,8 @@ def end_screen(screen: pygame.Surface, score, has_showed_conclusion: bool) -> No
     rect.bottom = HEIGHT + 80
     rect.left = -80
     screen.blit(background, (rect.x, rect.y))
-    font = pygame.font.Font(path.join('resources', 'font.ttf'), 18)
+    font = pygame.font.Font(resource_path(
+        path.join('resources', 'font.ttf')), 18)
     text_coord = 10
     for line in TEXT:
         text = font.render(line, 0, pygame.Color('white'))

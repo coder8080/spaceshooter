@@ -1,10 +1,11 @@
 import pygame
 from os import path
 from .constants import *
+from .resource_path import *
 
 
 def get_audio_path(name: str):
-    return path.join('resources', 'audio', name)
+    return resource_path(path.join('resources', 'audio', name))
 
 
 audio = {
