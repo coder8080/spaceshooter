@@ -3,3 +3,4 @@ resources/cache
 build
 dist
 *.spec
+venv

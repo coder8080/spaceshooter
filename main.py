@@ -52,6 +52,7 @@ if __name__ == '__main__':
         Background(0)
         Background(1)
         Player(end_game)
+        HealthDisplay()
         score = Score()
         enemy_timer = Timer(spawn_enemies, ENEMY_DELAY)
         powerup_timer = Timer(spawn_powerup, generate_powerup_delay())

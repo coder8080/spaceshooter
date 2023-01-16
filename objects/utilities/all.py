@@ -6,3 +6,4 @@ from .terminate import *
 from .timer import *
 from .audio import *
 from .resource_path import *
+from .singleton import *

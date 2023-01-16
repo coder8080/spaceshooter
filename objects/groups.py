@@ -8,10 +8,10 @@ player = pygame.sprite.Group()
 explosions = pygame.sprite.Group()
 power_ups = pygame.sprite.Group()
 particles = pygame.sprite.Group()
-score_group = pygame.sprite.Group()
+displays_group = pygame.sprite.Group()
 
 all_groups = [backgrounds, player_lasers, enemy_lasers, enemies,
-              player, explosions, power_ups, particles, score_group]
+              player, explosions, power_ups, particles, displays_group]
 
 
 def update_all_groups() -> None:

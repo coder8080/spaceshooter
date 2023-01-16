@@ -9,3 +9,4 @@ from .player import *
 from .power_ups import *
 from .flower_explosion import *
 from .score import *
+from .health_display import *

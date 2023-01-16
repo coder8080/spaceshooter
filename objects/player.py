@@ -2,6 +2,7 @@ from .importer import *
 from .explosion import *
 from .player_laser import *
 from .flower_explosion import *
+from .health_display import *
 
 
 class Player(pygame.sprite.Sprite):
@@ -24,6 +25,10 @@ class Player(pygame.sprite.Sprite):
         self.shoot_timer = Timer(self.shoot, Player.timing)
         self.hp = 100
         self.applied_damage = 100
+        self.health_display = HealthDisplay()
+
+    def update_healthdisplay(self):
+        self.health_display.set_value(self.hp)
 
     def small_explosion(self):
         Explosion(self.rect.x + self.rect.width // 2,
@@ -79,3 +84,4 @@ class Player(pygame.sprite.Sprite):
             self.hp = 100
             self.end_game()
         self.shoot_timer.update()
+        self.update_healthdisplay()
