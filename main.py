@@ -11,7 +11,7 @@ def spawn_enemies():
     return enemy_delay
 
 
-def spend_life():
+def end_game():
     player_lasers.empty()
     enemy_lasers.empty()
     enemies.empty()
@@ -29,12 +29,17 @@ if __name__ == '__main__':
     start_screen(screen)
 
     is_running = True
+
+    def end_game():
+        global is_running
+        is_running = False
+
     clock = pygame.time.Clock()
 # ------
     Background(0)
     Background(1)
-    Player()
-    Score()
+    Player(end_game)
+    score = Score()
     enemy_timer = Timer(spawn_enemies, enemy_delay)
     while is_running:
         for event in pygame.event.get():
@@ -68,4 +73,5 @@ if __name__ == '__main__':
 
         pygame.display.flip()
         clock.tick(FPS)
+    end_screen(screen, score)
     pygame.quit()

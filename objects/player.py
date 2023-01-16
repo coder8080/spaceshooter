@@ -14,8 +14,9 @@ class Player(pygame.sprite.Sprite):
     for i in range(len(damages)):
         damages[i] = pygame.transform.scale(damages[i], (w, 303 / 400 * w))
 
-    def __init__(self):
+    def __init__(self, end_game):
         super().__init__(player)
+        self.end_game = end_game
         self.image = Player.image.copy()
         self.rect = self.image.get_rect()
         self.rect.left = WIDTH // 2 - self.rect.width // 2
@@ -72,6 +73,5 @@ class Player(pygame.sprite.Sprite):
 
         if self.hp <= 0:
             self.hp = 100
-            # TODO: завершение игры
-            # spend_life()
+            self.end_game()
         self.shoot_timer.update()
