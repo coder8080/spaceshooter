@@ -1,14 +1,20 @@
+import pygame
 from objects.utilities.all import *
 from objects.all import *
-import pygame
 
 
 def spawn_enemies():
-    for _ in range(ENEMY_COUNT):
+    for _ in range(enemy_count):
         Enemy()
     for enemy in enemies:
         enemy.end_computation()
     return ENEMY_DELAY
+
+
+def increase_enemies():
+    global enemy_count
+    enemy_count += 1
+    return INCREASE_ENEMIES_DELAY
 
 
 def spawn_powerup():
@@ -34,7 +40,6 @@ if __name__ == '__main__':
     screen = pygame.display.set_mode(size)
     start_screen(screen)
     has_showed_conclusion = False
-    play('music')
     while True:
         is_running = True
 
@@ -49,22 +54,22 @@ if __name__ == '__main__':
         score = Score()
         enemy_timer = Timer(spawn_enemies, ENEMY_DELAY)
         powerup_timer = Timer(spawn_powerup, generate_powerup_delay())
-        # laser_sound_timer = Timer(play_laser_sound, LASER_SOUND_DELAY)
+        increase_timer = Timer(increase_enemies, INCREASE_ENEMIES_DELAY)
         while is_running:
+            update_music()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     terminate()
-                elif event.type == pygame.MOUSEMOTION:
-                    player.update(event)
-
             enemy_timer.update()
             powerup_timer.update()
-            # laser_sound_timer.update()
+            increase_timer.update()
             screen.fill('black')
+            player.update(pygame.mouse.get_pos())
             update_all_groups()
             draw_all_groups(screen)
             pygame.display.flip()
             clock.tick(FPS)
+        stop('music')
         clear_all_groups()
         end_screen(screen, score, has_showed_conclusion)
         has_showed_conclusion = True

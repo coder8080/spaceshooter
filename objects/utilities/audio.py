@@ -24,9 +24,20 @@ channels = {
 }
 
 
-def play(name: str):
+def play(name: str) -> None:
     mixerChannel = pygame.mixer.Channel(channels[name])
     sound = pygame.mixer.Sound(audio[name])
     if name == 'music':
         sound.set_volume(0.5)
     mixerChannel.play(sound)
+
+
+def update_music() -> None:
+    music_channel = pygame.mixer.Channel(channels['music'])
+    if not music_channel.get_busy():
+        play('music')
+
+
+def stop(name: str) -> None:
+    mixerChannel = pygame.mixer.Channel(channels[name])
+    mixerChannel.stop()

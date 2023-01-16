@@ -52,9 +52,9 @@ class Player(pygame.sprite.Sprite):
                 self.image.blit(Player.damages[0], (0, 0))
             self.applied_damage = self.hp
 
-    def update(self, event=None):
-        if event is not None and hasattr(event, 'pos'):
-            x, y = event.pos
+    def update(self, pos=None):
+        if pos is not None:
+            x, y = pos
             self.rect.left = min(
                 max(x - self.rect.width // 2, 0), WIDTH - self.rect.width)
             self.rect.top = min(max(y - self.rect.height // 2,
